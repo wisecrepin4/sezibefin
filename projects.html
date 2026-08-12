@@ -12,6 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="styles.css">
+<script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
 
@@ -68,212 +69,377 @@
 
   <section class="section-sm">
     <div class="shell">
-      <div class="carousel reveal" role="region" aria-roledescription="carousel" aria-label="Project gallery" tabindex="0">
-        <div class="carousel-viewport">
-          <div class="carousel-track">
+      <div class="browser" id="project-browser" role="region" aria-roledescription="project browser" aria-label="Projects" tabindex="0">
 
-            <div class="carousel-slide" role="group" aria-roledescription="slide" aria-label="1 of 4">
-              <figure>
-                <img src="assets/images/apartment-ndera.png" alt="Glads Apartment Hotel at Ndera, completed">
-                <figcaption>
-                  <span class="eyebrow">Hospitality &mdash; Ndera, Gasabo</span>
-                  <h2>Glads Apartment Hotel</h2>
-                </figcaption>
-              </figure>
-            </div>
+        <div class="pv-stage">
+      <article class="pv-item is-active" id="p01" aria-label="Project 1 of 14">
+        <div class="pv-plate">
+          <span>Warehouse and storage</span>
+          <strong>Warehouse facility</strong>
+        </div>
+        <div class="pv-body">
+          <span class="eyebrow">Warehouse and storage</span>
+          <h3>Warehouse facility</h3>
+          <p>A purpose-built storage and distribution facility, delivered from groundworks through to the completed structure.</p>
+          <dl class="pv-meta">
+            <div><dt>Client</dt><dd>Rwanda Events Group Ltd</dd></div>
+            <div><dt>Status</dt><dd>Completed</dd></div>
+          </dl>
+        </div>
+      </article>
+      <article class="pv-item" id="p02" aria-label="Project 2 of 14">
+        <div class="pv-media">
+          <img src="assets/images/apartment-ndera.png" alt="Glads Apartment Hotel, completed by Sezibera Construction" loading="lazy">
+        </div>
+        <div class="pv-body">
+          <span class="eyebrow">Hospitality</span>
+          <h3>Glads Apartment Hotel</h3>
+          <p>Our largest project to date. An apartment hotel built end to end, from the reinforced concrete frame through to finishes, boundary walling and the gated approach.</p>
+          <dl class="pv-meta">
+            <div><dt>Client</dt><dd>Glads Apartment</dd></div>
+            <div><dt>Location</dt><dd>Ndera, Gasabo District</dd></div>
+            <div><dt>Status</dt><dd>Completed</dd></div>
+          </dl>
+        </div>
+      </article>
+      <article class="pv-item" id="p03" aria-label="Project 3 of 14">
+        <div class="pv-media">
+          <img src="assets/images/warehouse-interior.png" alt="Safe Auto Modern Garage, completed by Sezibera Construction" loading="lazy">
+        </div>
+        <div class="pv-body">
+          <span class="eyebrow">Industrial</span>
+          <h3>Safe Auto Modern Garage</h3>
+          <p>A modern vehicle workshop with the clear internal span, hardstanding and vehicle access the operation needed.</p>
+          <dl class="pv-meta">
+            <div><dt>Client</dt><dd>Safe Auto Ltd</dd></div>
+            <div><dt>Location</dt><dd>Gasanze Sector, Gasabo District</dd></div>
+            <div><dt>Status</dt><dd>Completed</dd></div>
+          </dl>
+        </div>
+      </article>
+      <article class="pv-item" id="p04" aria-label="Project 4 of 14">
+        <div class="pv-plate">
+          <span>Mixed use</span>
+          <strong>G+2 mixed-use building</strong>
+        </div>
+        <div class="pv-body">
+          <span class="eyebrow">Mixed use</span>
+          <h3>G+2 mixed-use building</h3>
+          <p>A ground-plus-two building combining commercial space at ground level with residential accommodation above.</p>
+          <dl class="pv-meta">
+            <div><dt>Client</dt><dd>Glads Apartment</dd></div>
+            <div><dt>Location</dt><dd>Kanombe, Kicukiro, Kigali</dd></div>
+            <div><dt>Status</dt><dd>Completed</dd></div>
+          </dl>
+        </div>
+      </article>
+      <article class="pv-item" id="p05" aria-label="Project 5 of 14">
+        <div class="pv-plate">
+          <span>Residential</span>
+          <strong>G+3 apartment building</strong>
+        </div>
+        <div class="pv-body">
+          <span class="eyebrow">Residential</span>
+          <h3>G+3 apartment building</h3>
+          <p>A ground-plus-three apartment building delivered from foundation to handover.</p>
+          <dl class="pv-meta">
+            <div><dt>Client</dt><dd>Glads Apartment</dd></div>
+            <div><dt>Location</dt><dd>Kabeza, Kanombe, Kicukiro</dd></div>
+            <div><dt>Status</dt><dd>Completed</dd></div>
+          </dl>
+        </div>
+      </article>
+      <article class="pv-item" id="p06" aria-label="Project 6 of 14">
+        <div class="pv-plate">
+          <span>Residential</span>
+          <strong>Eight-unit apartment building</strong>
+        </div>
+        <div class="pv-body">
+          <span class="eyebrow">Residential</span>
+          <h3>Eight-unit apartment building</h3>
+          <p>Eight self-contained apartments built as a single residential development.</p>
+          <dl class="pv-meta">
+            <div><dt>Client</dt><dd>Scovia Mutesi</dd></div>
+            <div><dt>Location</dt><dd>Rusororo Sector, Gasabo District</dd></div>
+            <div><dt>Status</dt><dd>Completed</dd></div>
+          </dl>
+        </div>
+      </article>
+      <article class="pv-item" id="p07" aria-label="Project 7 of 14">
+        <div class="pv-plate">
+          <span>Renovation</span>
+          <strong>Renovation of Glads Real Estates</strong>
+        </div>
+        <div class="pv-body">
+          <span class="eyebrow">Renovation</span>
+          <h3>Renovation of Glads Real Estates</h3>
+          <p>Refurbishment of an existing real estate portfolio building, carried out around the constraints of the standing structure.</p>
+          <dl class="pv-meta">
+            <div><dt>Client</dt><dd>Glads Apartment</dd></div>
+            <div><dt>Location</dt><dd>Kigali City</dd></div>
+            <div><dt>Status</dt><dd>Completed</dd></div>
+          </dl>
+        </div>
+      </article>
+      <article class="pv-item" id="p08" aria-label="Project 8 of 14">
+        <div class="pv-plate">
+          <span>Hospitality renovation</span>
+          <strong>Renovation of Les Herons Hotel</strong>
+        </div>
+        <div class="pv-body">
+          <span class="eyebrow">Hospitality renovation</span>
+          <h3>Renovation of Les Herons Hotel</h3>
+          <p>Renovation of an operating hotel, phased so the building could keep working through the works.</p>
+          <dl class="pv-meta">
+            <div><dt>Client</dt><dd>Les Heron Business &amp; Investment Ltd</dd></div>
+            <div><dt>Location</dt><dd>Gisozi Sector, Gasabo District</dd></div>
+            <div><dt>Status</dt><dd>Completed</dd></div>
+          </dl>
+        </div>
+      </article>
+      <article class="pv-item" id="p09" aria-label="Project 9 of 14">
+        <div class="pv-plate">
+          <span>Institutional</span>
+          <strong>GS Bujyujyu school feeding kitchen</strong>
+        </div>
+        <div class="pv-body">
+          <span class="eyebrow">Institutional</span>
+          <h3>GS Bujyujyu school feeding kitchen</h3>
+          <p>A school feeding kitchen built to serve pupils daily, delivered for Solid Africa.</p>
+          <dl class="pv-meta">
+            <div><dt>Client</dt><dd>Solid Africa</dd></div>
+            <div><dt>Location</dt><dd>Rwamagana District</dd></div>
+            <div><dt>Status</dt><dd>Completed</dd></div>
+          </dl>
+        </div>
+      </article>
+      <article class="pv-item" id="p10" aria-label="Project 10 of 14">
+        <div class="pv-plate">
+          <span>Residential renovation</span>
+          <strong>Renovation of Kibagabaga villa</strong>
+        </div>
+        <div class="pv-body">
+          <span class="eyebrow">Residential renovation</span>
+          <h3>Renovation of Kibagabaga villa</h3>
+          <p>Full renovation of a private villa, including structural alterations to the existing building.</p>
+          <dl class="pv-meta">
+            <div><dt>Client</dt><dd>Richard</dd></div>
+            <div><dt>Location</dt><dd>Kibagabaga Sector, Gasabo District</dd></div>
+            <div><dt>Status</dt><dd>Completed</dd></div>
+          </dl>
+        </div>
+      </article>
+      <article class="pv-item" id="p11" aria-label="Project 11 of 14">
+        <div class="pv-plate">
+          <span>Residential</span>
+          <strong>G+1+P apartment building</strong>
+        </div>
+        <div class="pv-body">
+          <span class="eyebrow">Residential</span>
+          <h3>G+1+P apartment building</h3>
+          <p>A ground-plus-one apartment building with parking provision at podium level.</p>
+          <dl class="pv-meta">
+            <div><dt>Client</dt><dd>Gakwaya Aileth</dd></div>
+            <div><dt>Location</dt><dd>Kanombe Sector, Kicukiro District</dd></div>
+            <div><dt>Status</dt><dd>Completed</dd></div>
+          </dl>
+        </div>
+      </article>
+      <article class="pv-item" id="p12" aria-label="Project 12 of 14">
+        <div class="pv-plate">
+          <span>Hospitality</span>
+          <strong>LIGUE coffee shop</strong>
+        </div>
+        <div class="pv-body">
+          <span class="eyebrow">Hospitality</span>
+          <h3>LIGUE coffee shop</h3>
+          <p>A coffee shop fit-out and build, delivered to a trading deadline.</p>
+          <dl class="pv-meta">
+            <div><dt>Client</dt><dd>LIGUE</dd></div>
+            <div><dt>Location</dt><dd>Kacyiru Sector, Gasabo District</dd></div>
+            <div><dt>Status</dt><dd>Completed</dd></div>
+          </dl>
+        </div>
+      </article>
+      <article class="pv-item" id="p13" aria-label="Project 13 of 14">
+        <div class="pv-plate">
+          <span>Agricultural</span>
+          <strong>Imigongo farm hub</strong>
+        </div>
+        <div class="pv-body">
+          <span class="eyebrow">Agricultural</span>
+          <h3>Imigongo farm hub</h3>
+          <p>An agricultural hub building outside Kigali, delivered with its own access and site works.</p>
+          <dl class="pv-meta">
+            <div><dt>Client</dt><dd>Imigongo Partners</dd></div>
+            <div><dt>Location</dt><dd>Ndego Sector, Kayonza District</dd></div>
+            <div><dt>Status</dt><dd>Completed</dd></div>
+          </dl>
+        </div>
+      </article>
+      <article class="pv-item" id="p14" aria-label="Project 14 of 14">
+        <div class="pv-plate">
+          <span>Commercial renovation</span>
+          <strong>Renovation of Soras Towers</strong>
+        </div>
+        <div class="pv-body">
+          <span class="eyebrow">Commercial renovation</span>
+          <h3>Renovation of Soras Towers</h3>
+          <p>Renovation works to a city-centre commercial tower, carried out in an occupied building.</p>
+          <dl class="pv-meta">
+            <div><dt>Client</dt><dd>Soras Towers</dd></div>
+            <div><dt>Location</dt><dd>Nyarugenge District, city centre</dd></div>
+            <div><dt>Status</dt><dd>Completed</dd></div>
+          </dl>
+        </div>
+      </article>
+        </div>
 
-            <div class="carousel-slide" role="group" aria-roledescription="slide" aria-label="2 of 4">
-              <figure>
-                <img src="assets/images/warehouse-interior.png" alt="Interior of the Safe Auto modern garage">
-                <figcaption>
-                  <span class="eyebrow">Industrial &mdash; Gasanze, Gasabo</span>
-                  <h2>Safe Auto Modern Garage</h2>
-                </figcaption>
-              </figure>
-            </div>
-
-            <div class="carousel-slide" role="group" aria-roledescription="slide" aria-label="3 of 4">
-              <figure>
-                <img src="assets/images/villa-pool-dusk.png" alt="Completed residential villa with infinity pool">
-                <figcaption>
-                  <span class="eyebrow">Residential</span>
-                  <h2>Private villa and pool</h2>
-                </figcaption>
-              </figure>
-            </div>
-
-            <div class="carousel-slide" role="group" aria-roledescription="slide" aria-label="4 of 4">
-              <figure>
-                <img src="assets/images/site-scaffolding.jpg" alt="Multi-storey structure under construction">
-                <figcaption>
-                  <span class="eyebrow">In progress</span>
-                  <h2>Structure and frame works</h2>
-                </figcaption>
-              </figure>
-            </div>
-
+        <div class="pv-controls">
+          <p class="pv-count"><b id="pv-current">01</b> / 14</p>
+          <div class="pv-nav">
+            <button type="button" class="pv-arrow pv-prev">
+              <svg viewBox="0 0 36 20" aria-hidden="true"><path d="M11 3L3 10l8 7M3 10h33"/></svg>
+              <span class="pv-arrow-label">Previous</span>
+            </button>
+            <button type="button" class="pv-arrow pv-next">
+              <span class="pv-arrow-label">Next</span>
+              <svg viewBox="0 0 36 20" aria-hidden="true"><path d="M25 3l8 7-8 7M33 10H0"/></svg>
+            </button>
           </div>
         </div>
 
-        <div class="carousel-controls">
-          <button class="carousel-arrow carousel-prev" aria-label="Previous slide">
-            <svg viewBox="0 0 36 20"><path d="M11 3L3 10l8 7M3 10h33"/></svg>
-          </button>
-          <div class="carousel-dots" role="tablist" aria-label="Choose slide">
-            <button class="carousel-dot" role="tab" aria-selected="true" aria-label="Slide 1"></button>
-            <button class="carousel-dot" role="tab" aria-selected="false" aria-label="Slide 2"></button>
-            <button class="carousel-dot" role="tab" aria-selected="false" aria-label="Slide 3"></button>
-            <button class="carousel-dot" role="tab" aria-selected="false" aria-label="Slide 4"></button>
-          </div>
-          <button class="carousel-arrow carousel-next" aria-label="Next slide">
-            <svg viewBox="0 0 36 20"><path d="M25 3l8 7-8 7M33 10H0"/></svg>
-          </button>
-        </div>
       </div>
     </div>
   </section>
-
   <div class="shell"><hr class="hairline"></div>
 
   <section class="section">
     <div class="shell">
       <h2 class="h-section">Project register</h2>
-      <p class="body-copy measure" style="margin-top:1rem;">Completed and delivered works, with the client and location for each.</p>
+      <p class="body-copy measure" style="margin-top:1rem;">All fourteen, with the client and location for each. Select any one to open it above.</p>
 
       <div class="capability-list reveal">
 
-        <article class="capability">
+        <article class="capability project-row" data-project="0">
           <span class="capability-index">01</span>
-          <div><h3>Warehouse facility</h3></div>
+          <div><h3><button type="button" class="project-jump">Warehouse facility</button></h3></div>
           <ul>
             <li>Client — Rwanda Events Group Ltd</li>
             <li>Type — Warehouse and storage</li>
           </ul>
         </article>
-
-        <article class="capability">
+        <article class="capability project-row" data-project="1">
           <span class="capability-index">02</span>
-          <div><h3>Glads Apartment Hotel</h3></div>
+          <div><h3><button type="button" class="project-jump">Glads Apartment Hotel</button></h3></div>
           <ul>
             <li>Client — Glads Apartment</li>
             <li>Ndera, Gasabo District</li>
             <li>Type — Hospitality</li>
           </ul>
         </article>
-
-        <article class="capability">
+        <article class="capability project-row" data-project="2">
           <span class="capability-index">03</span>
-          <div><h3>Safe Auto Modern Garage</h3></div>
+          <div><h3><button type="button" class="project-jump">Safe Auto Modern Garage</button></h3></div>
           <ul>
             <li>Client — Safe Auto Ltd</li>
             <li>Gasanze Sector, Gasabo District</li>
             <li>Type — Industrial</li>
           </ul>
         </article>
-
-        <article class="capability">
+        <article class="capability project-row" data-project="3">
           <span class="capability-index">04</span>
-          <div><h3>G+2 mixed-use building</h3></div>
+          <div><h3><button type="button" class="project-jump">G+2 mixed-use building</button></h3></div>
           <ul>
             <li>Client — Glads Apartment</li>
             <li>Kanombe, Kicukiro, Kigali</li>
             <li>Type — Mixed use</li>
           </ul>
         </article>
-
-        <article class="capability">
+        <article class="capability project-row" data-project="4">
           <span class="capability-index">05</span>
-          <div><h3>G+3 apartment building</h3></div>
+          <div><h3><button type="button" class="project-jump">G+3 apartment building</button></h3></div>
           <ul>
             <li>Client — Glads Apartment</li>
             <li>Kabeza, Kanombe, Kicukiro</li>
             <li>Type — Residential</li>
           </ul>
         </article>
-
-        <article class="capability">
+        <article class="capability project-row" data-project="5">
           <span class="capability-index">06</span>
-          <div><h3>Eight-unit apartment building</h3></div>
+          <div><h3><button type="button" class="project-jump">Eight-unit apartment building</button></h3></div>
           <ul>
             <li>Client — Scovia Mutesi</li>
             <li>Rusororo Sector, Gasabo District</li>
             <li>Type — Residential</li>
           </ul>
         </article>
-
-        <article class="capability">
+        <article class="capability project-row" data-project="6">
           <span class="capability-index">07</span>
-          <div><h3>Renovation of Glads Real Estates</h3></div>
+          <div><h3><button type="button" class="project-jump">Renovation of Glads Real Estates</button></h3></div>
           <ul>
             <li>Client — Glads Apartment</li>
             <li>Kigali City</li>
             <li>Type — Renovation</li>
           </ul>
         </article>
-
-        <article class="capability">
+        <article class="capability project-row" data-project="7">
           <span class="capability-index">08</span>
-          <div><h3>Renovation of Les Herons Hotel</h3></div>
+          <div><h3><button type="button" class="project-jump">Renovation of Les Herons Hotel</button></h3></div>
           <ul>
             <li>Client — Les Heron Business &amp; Investment Ltd</li>
             <li>Gisozi Sector, Gasabo District</li>
             <li>Type — Hospitality renovation</li>
           </ul>
         </article>
-
-        <article class="capability">
+        <article class="capability project-row" data-project="8">
           <span class="capability-index">09</span>
-          <div><h3>GS Bujyujyu school feeding kitchen</h3></div>
+          <div><h3><button type="button" class="project-jump">GS Bujyujyu school feeding kitchen</button></h3></div>
           <ul>
             <li>Client — Solid Africa</li>
             <li>Rwamagana District</li>
             <li>Type — Institutional</li>
           </ul>
         </article>
-
-        <article class="capability">
+        <article class="capability project-row" data-project="9">
           <span class="capability-index">10</span>
-          <div><h3>Renovation of Kibagabaga villa</h3></div>
+          <div><h3><button type="button" class="project-jump">Renovation of Kibagabaga villa</button></h3></div>
           <ul>
             <li>Client — Richard</li>
             <li>Kibagabaga Sector, Gasabo District</li>
             <li>Type — Residential renovation</li>
           </ul>
         </article>
-
-        <article class="capability">
+        <article class="capability project-row" data-project="10">
           <span class="capability-index">11</span>
-          <div><h3>G+1+P apartment building</h3></div>
+          <div><h3><button type="button" class="project-jump">G+1+P apartment building</button></h3></div>
           <ul>
             <li>Client — Gakwaya Aileth</li>
             <li>Kanombe Sector, Kicukiro District</li>
             <li>Type — Residential</li>
           </ul>
         </article>
-
-        <article class="capability">
+        <article class="capability project-row" data-project="11">
           <span class="capability-index">12</span>
-          <div><h3>LIGUE coffee shop</h3></div>
+          <div><h3><button type="button" class="project-jump">LIGUE coffee shop</button></h3></div>
           <ul>
             <li>Client — LIGUE</li>
             <li>Kacyiru Sector, Gasabo District</li>
             <li>Type — Hospitality</li>
           </ul>
         </article>
-
-        <article class="capability">
+        <article class="capability project-row" data-project="12">
           <span class="capability-index">13</span>
-          <div><h3>Imigongo farm hub</h3></div>
+          <div><h3><button type="button" class="project-jump">Imigongo farm hub</button></h3></div>
           <ul>
             <li>Client — Imigongo Partners</li>
             <li>Ndego Sector, Kayonza District</li>
             <li>Type — Agricultural</li>
           </ul>
         </article>
-
-        <article class="capability">
+        <article class="capability project-row" data-project="13">
           <span class="capability-index">14</span>
-          <div><h3>Renovation of Soras Towers</h3></div>
+          <div><h3><button type="button" class="project-jump">Renovation of Soras Towers</button></h3></div>
           <ul>
             <li>Client — Soras Towers</li>
             <li>Nyarugenge District, city centre</li>
@@ -281,80 +447,6 @@
           </ul>
         </article>
 
-      </div>
-    </div>
-  </section>
-
-  <div class="shell"><hr class="hairline"></div>
-
-  <section class="section">
-    <div class="shell">
-      <h2 class="h-section">On site</h2>
-
-      <div class="gallery reveal">
-        <figure>
-          <div><img src="assets/images/villa-pool-day.jpg" alt="Completed villa with glazed balustrades"></div>
-          <figcaption>
-            <span class="label">Residential</span>
-            <p>Private villa, completed and handed over.</p>
-          </figcaption>
-        </figure>
-        <figure>
-          <div><img src="assets/images/warehouse-shell.png" alt="Warehouse structure nearing completion"></div>
-          <figcaption>
-            <span class="label">Warehouse</span>
-            <p>Storage and distribution facility under construction.</p>
-          </figcaption>
-        </figure>
-        <figure>
-          <div><img src="assets/images/roadworks.png" alt="Road surfacing works in progress"></div>
-          <figcaption>
-            <span class="label">Roads and pavements</span>
-            <p>Surfacing and access works.</p>
-          </figcaption>
-        </figure>
-        <figure>
-          <div><img src="assets/images/site-netting.jpg" alt="Multi-storey building wrapped in safety netting"></div>
-          <figcaption>
-            <span class="label">Structure</span>
-            <p>Frame and envelope works with full site protection.</p>
-          </figcaption>
-        </figure>
-        <figure>
-          <div><img src="assets/images/renovation-works.jpg" alt="Renovation team forming a new opening in a wall"></div>
-          <figcaption>
-            <span class="label">Renovation</span>
-            <p>Structural alterations to an existing building.</p>
-          </figcaption>
-        </figure>
-        <figure>
-          <div><img src="assets/images/apartment-completed.png" alt="Completed apartment block"></div>
-          <figcaption>
-            <span class="label">Residential</span>
-            <p>Apartment building completed and occupied.</p>
-          </figcaption>
-        </figure>
-        <figure>
-          <div><img src="assets/images/house-modern.jpg" alt="Modern completed house behind a boundary wall"></div>
-          <figcaption>
-            <span class="label">Residential</span>
-            <p>Private house with boundary works and gated approach.</p>
-          </figcaption>
-        </figure>
-        <figure>
-          <div><img src="assets/images/complex-exterior.jpg" alt="Completed building complex"></div>
-          <figcaption>
-            <span class="label">Commercial</span>
-            <p>Completed facility with hardstanding and access.</p>
-          </figcaption>
-        </figure>
-        <figure>
-          <div><img src="assets/images/worker-rebar.jpg" alt="Worker fixing reinforcement on site"></div>
-          <figcaption>
-            <span class="label">Civil works</span>
-            <p>Reinforcement fixing ahead of a structural pour.</p>
-          </figcaption>
-        </figure>
       </div>
     </div>
   </section>

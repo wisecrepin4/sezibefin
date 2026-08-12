@@ -87,6 +87,75 @@ document.addEventListener('DOMContentLoaded', () => {
     render();
   });
 
+  /* Project browser --------------------------------------------------------
+     One project on screen at a time. The register below is its index, so
+     there is a single mental model for moving through the work. Wraps at
+     both ends — with a counter present, a dead-end button reads as broken. */
+  const browser = document.querySelector('.browser');
+  if (browser) {
+    const items = Array.from(browser.querySelectorAll('.pv-item'));
+    const rows = Array.from(document.querySelectorAll('.project-row'));
+    const current = browser.querySelector('#pv-current');
+    const prev = browser.querySelector('.pv-prev');
+    const next = browser.querySelector('.pv-next');
+    let index = 0;
+
+    // A lazy image inside a display:none slide never fetches, so stepping to
+    // it would show an empty frame while several megabytes arrive. Warm the
+    // current slide and its two neighbours; the rest stay deferred.
+    const warm = (i) => {
+      [i - 1, i, i + 1].forEach((n) => {
+        const item = items[(n + items.length) % items.length];
+        item.querySelectorAll('img[loading="lazy"]').forEach((img) => img.removeAttribute('loading'));
+      });
+    };
+
+    const render = (focusStage) => {
+      warm(index);
+      items.forEach((item, i) => item.classList.toggle('is-active', i === index));
+      rows.forEach((row, i) => row.classList.toggle('is-current', i === index));
+      if (current) current.textContent = String(index + 1).padStart(2, '0');
+      // Shareable without polluting history or jumping the page
+      history.replaceState(null, '', '#' + items[index].id);
+      if (focusStage) items[index].scrollIntoView({ block: 'nearest' });
+    };
+
+    const goTo = (i, focusStage) => {
+      index = (i + items.length) % items.length;
+      render(focusStage);
+    };
+
+    if (prev) prev.addEventListener('click', () => goTo(index - 1));
+    if (next) next.addEventListener('click', () => goTo(index + 1));
+
+    rows.forEach((row, i) => {
+      const jump = row.querySelector('.project-jump');
+      if (jump) jump.addEventListener('click', () => {
+        goTo(i);
+        browser.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    browser.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(index - 1); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); goTo(index + 1); }
+    });
+
+    let startX = null;
+    browser.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, { passive: true });
+    browser.addEventListener('touchend', (e) => {
+      if (startX === null) return;
+      const dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) > 45) goTo(dx < 0 ? index + 1 : index - 1);
+      startX = null;
+    }, { passive: true });
+
+    // Honour a shared link such as projects.html#p07
+    const fromHash = items.findIndex((item) => '#' + item.id === location.hash);
+    index = fromHash > -1 ? fromHash : 0;
+    render();
+  }
+
   /* Reveal on scroll ----------------------------------------------------- */
   const revealEls = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window && revealEls.length) {

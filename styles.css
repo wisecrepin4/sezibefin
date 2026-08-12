@@ -417,15 +417,14 @@ p + p { margin-top: 1.125rem; }
 
 .hero-media { position: absolute; inset: 0; }
 
-/* Black and white, shaped rather than flattened: contrast opens up the
-   midtones the desaturation collapses, so brick, render and glazing stay
-   separable instead of turning to one grey mass. */
+/* Full colour. No contrast boost either — that existed only to reopen the
+   midtones desaturation had collapsed, and on a colour frame it just clips
+   the highlights. */
 .hero-media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center 45%;
-  filter: grayscale(1) contrast(1.22) brightness(1.02);
 }
 
 /* The matte black translucent sheet — deepest at the edges so the centred
@@ -810,6 +809,134 @@ p + p { margin-top: 1.125rem; }
 .carousel-dot[aria-selected="true"] { width: 1.75rem; background: var(--accent); }
 
 /* --------------------------------------------------------------------------
+   12c. PROJECT BROWSER — one project at a time, with the register as its index
+   -------------------------------------------------------------------------- */
+
+.browser { margin-top: var(--space-md); }
+
+/* Without JavaScript every project simply stacks and stays readable. */
+.pv-item {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+.pv-item + .pv-item { margin-top: var(--space-md); }
+
+.js .pv-item { display: none; }
+.js .pv-item.is-active { display: grid; }
+.js .pv-item + .pv-item { margin-top: 0; }
+
+.pv-media { overflow: hidden; }
+.pv-media img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+/* Title card for projects whose photograph has not been identified yet.
+   Deliberate rather than empty — and never a photo of a different building
+   captioned as this one. */
+.pv-plate {
+  aspect-ratio: 4 / 3;
+  display: grid;
+  place-content: center;
+  gap: 0.875rem;
+  padding: 2rem;
+  text-align: center;
+  background: var(--paper-sunk);
+  border: 1px solid var(--line);
+}
+.pv-plate strong {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(1.375rem, 2.6vw, 2rem);
+  line-height: 1.15;
+  color: var(--ink);
+}
+.pv-plate span {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+.pv-body h3 {
+  margin-top: 0.75rem;
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  line-height: 1.15;
+}
+.pv-body > p { margin-top: 1.25rem; font-size: 0.9375rem; line-height: 1.75; }
+
+.pv-meta {
+  margin-top: 1.75rem;
+  padding-top: 1.375rem;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 1.125rem;
+}
+.pv-meta dt {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.pv-meta dd { margin: 0.3rem 0 0; font-size: 1rem; color: var(--ink); }
+
+.pv-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-top: var(--space-sm);
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+}
+
+.pv-count {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--ink-mute);
+  font-variant-numeric: tabular-nums;
+}
+.pv-count b { color: var(--ink); font-weight: 600; }
+
+.pv-nav { display: flex; align-items: center; gap: 0.75rem; }
+
+.pv-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink);
+  transition: color 0.3s var(--ease), gap 0.3s var(--ease);
+}
+.pv-arrow svg { width: 1.875rem; height: 1rem; fill: none; stroke: currentColor; stroke-width: 1.1; }
+.pv-arrow:hover { color: var(--accent); gap: 1rem; }
+.pv-arrow-label { display: none; }
+
+/* Register rows double as the browser's index */
+.project-jump {
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  padding: 0;
+  transition: color 0.3s var(--ease);
+}
+.project-jump:hover { color: var(--accent); }
+
+.project-row { transition: opacity 0.3s var(--ease); }
+.js .project-row.is-current .capability-index { color: var(--ink); }
+.js .project-row.is-current .project-jump { color: var(--accent); }
+
+/* --------------------------------------------------------------------------
    13. NOTICE — quiet inset for "content not supplied yet"
    -------------------------------------------------------------------------- */
 
@@ -1023,6 +1150,8 @@ p + p { margin-top: 1.125rem; }
   .capability { grid-template-columns: 5rem minmax(0, 1fr) minmax(0, 1fr); }
   .figure { max-width: 100%; }
   .people { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pv-item { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: var(--space-md); }
+  .pv-arrow-label { display: inline; }
 }
 
 @media (min-width: 64rem) {
