@@ -12,16 +12,31 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="styles.css">
-<script>document.documentElement.classList.add('js');</script>
+<script>document.documentElement.classList.add('js');window.__loadStart=Date.now();</script>
 </head>
 <body>
+
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader-inner">
+    <svg class="loader-mark" viewBox="0 0 526 374" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+      <rect x="0" y="72" width="34" height="238" rx="17"/>
+      <rect x="98" y="15" width="34" height="343" rx="17"/>
+      <rect x="196" y="59" width="34" height="257" rx="17"/>
+      <rect x="294" y="99" width="34" height="179" rx="17"/>
+      <rect x="392" y="1" width="34" height="372" rx="17"/>
+      <rect x="492" y="49" width="34" height="276" rx="17"/>
+    </svg>
+    <div class="loader-track"><span></span></div>
+    <p class="loader-pct"><b>0</b>%</p>
+  </div>
+</div>
 
 <header class="masthead">
   <div class="shell masthead-inner">
     <a href="tel:+250788358876" class="masthead-phone">+250 788 358 876</a>
 
     <a href="index.html" class="masthead-logo" aria-label="Sezibera Construction home">
-      <img src="assets/images/logo-black.png" alt="Sezibera Construction">
+      <img src="assets/images/logo-black.png" alt="Sezibera Construction" width="1600" height="561">
     </a>
 
     <div class="masthead-end">
@@ -192,7 +207,7 @@
     <div class="cta-pair">
       <div>
         <h2>See our work</h2>
-        <p>Fourteen projects completed and handed over.</p>
+        <p>Thirteen projects completed and handed over.</p>
         <a href="projects.html" class="btn">View projects</a>
       </div>
       <div>
@@ -210,7 +225,7 @@
 
     <div class="footer-top">
       <h2>One partner for construction, property and transport</h2>
-      <div class="footer-mark"><img src="assets/images/mark-black.png" alt=""></div>
+      <div class="footer-mark"><img src="assets/images/mark-black.png" alt="" width="591" height="438"></div>
     </div>
 
     <div class="footer-main">

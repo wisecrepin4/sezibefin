@@ -1,5 +1,163 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+  /* Page loader ------------------------------------------------------------
+     The mark's six bars animate as the waveform they already resemble, then
+     the overlay clears. It also covers same-site navigation, so moving
+     between pages reads as one continuous motion rather than a white flash. */
+  const loader = document.getElementById('loader');
+  if (loader) {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // JS is alive, so drop the CSS failsafe and take over visibility
+    loader.style.animation = 'none';
+
+    const bars = Array.from(loader.querySelectorAll('.loader-mark rect'));
+    const MIN_LOOP = reduced ? 0 : 700;   // below this the waveform reads as a flicker
+    const SETTLE = 420;                   // bars ease back to the true mark
+    const HOLD = 110;                     // the resolved logo registers before the reveal
+    const started = window.__loadStart || Date.now();
+    const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+
+    const scaleYOf = (bar) => {
+      const t = getComputedStyle(bar).transform;
+      if (!t || t === 'none') return 1;
+      try { return new DOMMatrixReadOnly(t).d || 1; } catch (err) { return 1; }
+    };
+
+    /* Pin each bar at whatever height it currently occupies, drop the loop,
+       then ease every bar to full — the mark resolving into itself. Without
+       the pin the browser snaps to the base value and the settle is a jump. */
+    const settle = async () => {
+      if (reduced || !bars.length) return;
+      bars.forEach((bar) => {
+        const y = scaleYOf(bar);
+        bar.style.animation = 'none';
+        bar.style.transition = 'none';
+        bar.style.transform = 'scaleY(' + y + ')';
+      });
+      void loader.offsetWidth;
+      bars.forEach((bar) => {
+        bar.style.transition = 'transform ' + SETTLE + 'ms cubic-bezier(0.22, 0.68, 0.28, 1)';
+        bar.style.transform = 'scaleY(1)';
+      });
+      await wait(SETTLE + 30);
+    };
+
+    const restartBars = () => bars.forEach((bar) => {
+      bar.style.transition = '';
+      bar.style.transform = '';
+      bar.style.animation = '';
+    });
+
+    /* Progress ------------------------------------------------------------
+       Counts real work: the page's own non-deferred images, which on this
+       site are the whole cost. Lazy images are excluded — they are meant to
+       arrive later, so counting them would stall the number at 90%. */
+    const pctEl = loader.querySelector('.loader-pct b');
+    const barEl = loader.querySelector('.loader-track span');
+    const tracked = Array.from(document.images)
+      .filter((img) => img.getAttribute('loading') !== 'lazy');
+    let arrived = tracked.filter((img) => img.complete).length;
+    let forced = false;
+
+    tracked.forEach((img) => {
+      if (img.complete) return;
+      const count = () => { arrived += 1; };
+      img.addEventListener('load', count, { once: true });
+      img.addEventListener('error', count, { once: true });
+    });
+
+    // Hold just short of full until the window has genuinely finished, so
+    // 100% never appears while bytes are still arriving.
+    const target = () => {
+      if (forced) return 1;
+      const share = tracked.length ? arrived / tracked.length : 1;
+      return document.readyState === 'complete' ? 1 : Math.min(share, 0.96);
+    };
+
+    let shown = 0;
+    const paint = (v) => {
+      const n = Math.round(v * 100);
+      if (pctEl) pctEl.textContent = String(n);
+      if (barEl) barEl.style.width = n + '%';
+    };
+    paint(0);
+
+    /* Driven by an interval rather than requestAnimationFrame: rAF is paused
+       outright in a background tab, which would leave the counter frozen and
+       the page stranded behind the overlay until the failsafe. A 30ms tick
+       keeps running, and the CSS transition on the bar smooths it. */
+    const atFull = new Promise((resolve) => {
+      if (reduced) { paint(1); return resolve(); }
+      let last = Date.now();
+      const timer = setInterval(() => {
+        const now = Date.now();
+        const dt = Math.min(1000, now - last);
+        last = now;
+        // Close half the remaining gap every 180ms of real time, so the
+        // counter converges at the same pace whatever the tick rate.
+        const t = target();
+        shown += (t - shown) * (1 - Math.pow(0.5, dt / 180));
+        if (t - shown < 0.004) shown = t;
+        paint(shown);
+        if (shown >= 1) { clearInterval(timer); resolve(); }
+      }, 30);
+    });
+
+    let revealed = false;
+    const reveal = async () => {
+      if (revealed) return;
+      revealed = true;
+      await settle();                       // finish the animation first…
+      await wait(reduced ? 0 : HOLD);
+      loader.classList.add('is-hidden');    // …then hand the page over
+      document.body.classList.add('page-in');
+    };
+
+    const hide = () => {
+      paint(1);
+      loader.classList.add('is-hidden');
+      document.body.classList.add('page-in');
+    };
+
+    // Reveal needs both: a full count, and enough time for the waveform to read
+    Promise.all([atFull, wait(Math.max(0, MIN_LOOP - (Date.now() - started)))])
+      .then(reveal);
+
+    // If the network stalls, run the counter home rather than freeze mid-number
+    setTimeout(() => { forced = true; }, 5000);
+    setTimeout(hide, 8000);                 // never hold the page hostage
+
+    // Returning via the back button restores a cached page mid-transition
+    window.addEventListener('pageshow', (e) => { if (e.persisted) hide(); });
+
+    if (!reduced) {
+      document.addEventListener('click', (e) => {
+        if (e.defaultPrevented || e.button !== 0) return;
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+
+        const link = e.target.closest('a[href]');
+        if (!link || link.hasAttribute('download')) return;
+        if (link.target && link.target !== '_self') return;
+
+        const href = link.getAttribute('href');
+        if (!href || href.startsWith('#') || /^(mailto:|tel:)/i.test(href)) return;
+
+        const url = new URL(link.href, location.href);
+        if (url.origin !== location.origin) return;
+        if (url.pathname === location.pathname) return;   // same page, incl. #anchors
+
+        e.preventDefault();
+        restartBars();
+        paint(0);                                   // the next page counts from zero
+        document.body.classList.remove('page-in');
+        loader.classList.remove('is-hidden');
+        // Let the overlay reach full opacity before the swap, so the outgoing
+        // page is never visible behind a half-faded loader.
+        setTimeout(() => { location.href = link.href; }, 520);
+      });
+    }
+  }
+
   /* Nav panel ------------------------------------------------------------ */
   const burger = document.querySelector('.nav-burger');
   const panel = document.querySelector('.nav-panel');

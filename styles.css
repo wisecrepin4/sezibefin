@@ -100,7 +100,13 @@ body {
 
 body.nav-open { overflow: hidden; }
 
+/* Intrinsic width/height are set in the markup so the browser reserves the
+   space before an image arrives. These two keep them fluid regardless. */
 img { display: block; max-width: 100%; height: auto; }
+
+/* Anchored targets clear the sticky masthead instead of hiding beneath it */
+:target,
+[id] { scroll-margin-top: 7rem; }
 a { color: inherit; text-decoration: none; }
 ul, ol { list-style: none; padding: 0; }
 button { font: inherit; border: 0; background: none; cursor: pointer; color: inherit; }
@@ -1054,6 +1060,135 @@ p + p { margin-top: 1.125rem; }
 .cta-pair h2 { font-size: clamp(1.5rem, 2.4vw, 2rem); }
 .cta-pair p { margin-top: 0.75rem; font-size: 0.9375rem; }
 .cta-pair .btn { margin-top: 1.75rem; }
+
+/* --------------------------------------------------------------------------
+   15b. LOADER — the mark's six bars, animated as the waveform they already are
+   -------------------------------------------------------------------------- */
+
+/* Hidden by default: without JavaScript this must never cover the page. */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: grid;
+  place-items: center;
+  background: var(--paper);
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* With JavaScript it is visible from the first paint, then faded out.
+   The animation is a failsafe: if script.js never runs, the overlay clears
+   itself after six seconds rather than trapping the visitor behind it.
+   script.js cancels it as soon as it takes control. */
+.js .loader {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.5s var(--ease), visibility 0.5s var(--ease);
+  animation: loader-failsafe 0s linear 6s forwards;
+}
+.js .loader.is-hidden { opacity: 0; visibility: hidden; }
+
+@keyframes loader-failsafe { to { opacity: 0; visibility: hidden; } }
+
+.loader-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.875rem;
+}
+
+.loader-mark {
+  width: clamp(6.5rem, 13vw, 9.5rem);
+  height: auto;
+  color: var(--ink);
+  overflow: visible;
+}
+
+/* A hairline that fills — the same rule that separates every section on the
+   site, put to work as the progress track. */
+.loader-track {
+  position: relative;
+  width: clamp(8rem, 17vw, 11.5rem);
+  height: 1px;
+  background: var(--line);
+  overflow: hidden;
+}
+.loader-track span {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0;
+  background: var(--ink);
+  transition: width 0.2s linear;
+}
+
+.loader-pct {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: var(--ink-mute);
+  font-variant-numeric: tabular-nums;
+}
+
+/* The digits go 0 → 100, so the box reserves the widest case and aligns
+   right. Without it the whole centred line would shift as the count climbs. */
+/* Reserves the widest case (100) so the centred line never shifts as the
+   count climbs. 3ch covers the digits; the 0.66em covers the two extra
+   letter-spaces those digits bring with them. */
+.loader-pct b {
+  display: inline-block;
+  min-width: calc(3ch + 0.66em);
+  text-align: right;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* One shared duration so the six bars stay in a single rhythm; only the
+   delay is staggered. A common period is what lets the set resolve cleanly
+   instead of being cut off mid-bounce. */
+.loader-mark rect {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: loader-bar 0.85s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+.loader-mark rect:nth-child(1) { animation-delay: 0s; }
+.loader-mark rect:nth-child(2) { animation-delay: 0.08s; }
+.loader-mark rect:nth-child(3) { animation-delay: 0.16s; }
+.loader-mark rect:nth-child(4) { animation-delay: 0.04s; }
+.loader-mark rect:nth-child(5) { animation-delay: 0.12s; }
+.loader-mark rect:nth-child(6) { animation-delay: 0.2s; }
+
+@keyframes loader-bar {
+  0%, 100% { transform: scaleY(0.34); }
+  50%      { transform: scaleY(1); }
+}
+
+/* --------------------------------------------------------------------------
+   15c. PAGE ENTRANCE — content arrives only once the mark has settled
+   -------------------------------------------------------------------------- */
+
+@keyframes page-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes page-rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Applied after the loader resolves. The content is visible by default, so
+   nothing is hidden if these never run — the overlay simply covers it until
+   the class lands. The masthead fades only: animating transform on a sticky
+   element would break stickiness while it runs. */
+.js body.page-in .masthead     { animation: page-fade 0.6s var(--ease) both; }
+.js body.page-in main          { animation: page-rise 0.75s var(--ease) 0.06s both; }
+.js body.page-in .site-footer  { animation: page-rise 0.75s var(--ease) 0.14s both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .loader-mark rect { animation: none; }
+  .js .loader { transition: none; }
+  .js body.page-in .masthead,
+  .js body.page-in main,
+  .js body.page-in .site-footer { animation: none; }
+}
 
 /* --------------------------------------------------------------------------
    16. FOOTER — licence line, hairline, link row, legal
