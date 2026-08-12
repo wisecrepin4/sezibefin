@@ -397,35 +397,79 @@ p + p { margin-top: 1.125rem; }
 .nav-panel-foot .accent { color: var(--accent); font-weight: 500; }
 
 /* --------------------------------------------------------------------------
-   7. HERO — centred serif statement on paper, photographic plate beneath
+   7. HERO — completed building behind a matte black sheet, logo centred on it
    -------------------------------------------------------------------------- */
 
-.hero { padding-block: var(--space-lg) 0; }
-
-.hero-statement { text-align: center; }
-
-.hero-statement .display { margin-top: 1.5rem; }
-
-.hero-statement .lead {
-  margin: 1.75rem auto 0;
-  max-width: 34rem;
-}
-
-.hero-actions { margin-top: 2.25rem; }
-
-/* The building is the argument — shown whole, uncropped by any overlay.
-   16:9 keeps the full elevation in frame; only sky and forecourt trim off. */
-.hero-plate {
-  margin-top: var(--space-md);
+.hero {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: clamp(30rem, 80vh, 44rem);
+  padding-block: var(--space-lg);
+  text-align: center;
   overflow: hidden;
+  background: var(--band-deep);
 }
 
-.hero-plate img {
+.hero-media { position: absolute; inset: 0; }
+
+/* Black and white, shaped rather than flattened: contrast opens up the
+   midtones the desaturation collapses, so brick, render and glazing stay
+   separable instead of turning to one grey mass. */
+.hero-media img {
   width: 100%;
-  aspect-ratio: 16 / 9;
+  height: 100%;
   object-fit: cover;
   object-position: center 45%;
+  filter: grayscale(1) contrast(1.22) brightness(1.02);
 }
+
+/* The matte black translucent sheet — deepest at the edges so the centred
+   logo always sits on the darkest part of the frame, whatever the crop.
+   Lighter than it would need to be in colour: mono imagery competes far
+   less with white type, so the building is allowed to stay legible. */
+.hero-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 90% at 50% 45%, rgba(14, 15, 17, 0.30) 0%, rgba(14, 15, 17, 0.68) 100%),
+    linear-gradient(180deg, rgba(14, 15, 17, 0.52) 0%, rgba(14, 15, 17, 0.38) 45%, rgba(14, 15, 17, 0.74) 100%);
+}
+
+.hero-inner { position: relative; z-index: 1; }
+
+.hero .eyebrow { color: rgba(255, 255, 255, 0.74); }
+
+/* The hero makes the claim; the masthead carries the identity. No wordmark
+   here — it would only repeat the logo sitting directly above it. */
+.hero-title {
+  margin-top: 1.5rem;
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(2rem, 5.4vw, 4rem);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  color: #fff;
+}
+
+/* Each sentence is its own span rather than a <br>: on phones they stay
+   inline and wrap naturally on the real space between them, and only get
+   their own line once there is room for both. A hidden <br> would have
+   glued "certainty.Delivered" into one unbreakable word. */
+.hero-title span { display: inline; }
+@media (min-width: 34rem) {
+  .hero-title span { display: block; }
+}
+
+.hero-sub {
+  margin: 2rem auto 0;
+  max-width: 34rem;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.hero-actions { margin-top: 2.5rem; }
 
 .hero-plate figcaption {
   margin-top: 1rem;
