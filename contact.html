@@ -77,6 +77,10 @@
             <dd><a href="tel:+250788358876" class="link-underline">+250 788 358 876</a></dd>
           </div>
           <div>
+            <dt>Email</dt>
+            <dd><a href="mailto:seziberaconstruction@gmail.com" class="link-underline">seziberaconstruction@gmail.com</a></dd>
+          </div>
+          <div>
             <dt>Office</dt>
             <dd>Rembo House, KN 5 Rd, Ground Floor, Office 001<br>Remera&ndash;Gisementi, Kigali, Rwanda</dd>
           </div>
@@ -89,7 +93,7 @@
             <dd>New build, extension, renovation</dd>
           </div>
         </dl>
-        <p class="form-note" style="margin-top:1.5rem;">An email address has not been supplied yet — send one through and it will be listed here.</p>
+        
       </div>
 
       <aside>
@@ -102,8 +106,8 @@
           <p class="aside-value">We walk you through your needs, the scope of your goals, and your budget before any work is priced.</p>
         </div>
         <div class="aside-block">
-          <span class="aside-label">&#9742; Call us</span>
-          <p class="aside-value"><a href="tel:+250788358876">+250 788 358 876</a></p>
+          <span class="aside-label">&#9742; Call or email</span>
+          <p class="aside-value"><a href="tel:+250788358876">+250 788 358 876</a><br><a href="mailto:seziberaconstruction@gmail.com">seziberaconstruction@gmail.com</a></p>
         </div>
       </aside>
 
@@ -118,17 +122,24 @@
         <h2 class="h-section">Let's Chat.</h2>
         <p>Use the form below to contact us regarding your enquiry. Please be as detailed as possible. Include the location of the site along with any specific details. To help us best serve your enquiry, we recommend that you first describe the type of building you are wanting built.</p>
 
-        <form class="form">
+        <form class="form" action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="PASTE-YOUR-WEB3FORMS-ACCESS-KEY-HERE">
+          <input type="hidden" name="subject" value="New website enquiry — Sezibera Construction">
+          <input type="hidden" name="from_name" value="Sezibera Construction website">
+          <label class="hp" aria-hidden="true">Leave this field empty
+            <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off">
+          </label>
+
           <div>
             <span class="form-legend">Name</span>
             <div class="form-2">
               <div class="field">
                 <label for="first">First name <span class="req">(required)</span></label>
-                <input type="text" id="first" name="first" required>
+                <input type="text" id="first" name="First name" required>
               </div>
               <div class="field">
                 <label for="last">Last name <span class="req">(required)</span></label>
-                <input type="text" id="last" name="last" required>
+                <input type="text" id="last" name="Last name" required>
               </div>
             </div>
           </div>
@@ -140,14 +151,14 @@
             </div>
             <div class="field">
               <label for="phone">Phone <span class="req">(required)</span></label>
-              <input type="tel" id="phone" name="phone" required>
+              <input type="tel" id="phone" name="Phone" required>
             </div>
           </div>
 
           <div class="form-2">
             <div class="field">
               <label for="type">Project type</label>
-              <select id="type" name="type">
+              <select id="type" name="Project type">
                 <option>New build</option>
                 <option>Extension</option>
                 <option>Renovation / remodelling</option>
@@ -158,18 +169,18 @@
             </div>
             <div class="field">
               <label for="location">Site location</label>
-              <input type="text" id="location" name="location">
+              <input type="text" id="location" name="Site location">
             </div>
           </div>
 
           <div class="field">
             <label for="message">About the project <span class="req">(required)</span></label>
             <span class="hint">Please do not include confidential or sensitive information in your message.</span>
-            <textarea id="message" name="message" required></textarea>
+            <textarea id="message" name="Message" required></textarea>
           </div>
 
           <button type="submit" class="btn" style="justify-self:start;">Submit</button>
-          <p class="form-note">This form is not yet connected to an inbox — until it is, please call the number above.</p>
+          <p class="form-note" role="status" aria-live="polite">We usually reply within one working day. You can also call <a href="tel:+250788358876">+250 788 358 876</a>.</p>
         </form>
       </div>
     </div>
@@ -211,6 +222,7 @@
         </nav>
         <p class="footer-contact">
           <a href="tel:+250788358876">+250 788 358 876</a><br>
+          <a href="mailto:seziberaconstruction@gmail.com">seziberaconstruction@gmail.com</a><br>
           Rembo House, KN 5 Rd, Ground Floor, Office 001<br>Remera&ndash;Gisementi, Kigali, Rwanda
         </p>
       </div>
@@ -225,7 +237,7 @@
       </div>
     </div>
 
-    <p class="footer-legal">Sezibera Construction Ltd &copy; <span id="year"></span></p>
+    <p class="footer-legal">Sezibera Construction Ltd &copy; <span id="year">2026</span></p>
   </div>
 </footer>
 

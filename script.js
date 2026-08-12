@@ -107,14 +107,62 @@ document.addEventListener('DOMContentLoaded', () => {
   const year = document.getElementById('year');
   if (year) year.textContent = new Date().getFullYear();
 
-  /* Contact form --------------------------------------------------------- */
-  const form = document.querySelector('.form');
-  if (form) {
-    form.addEventListener('submit', (e) => {
+  /* Contact form ----------------------------------------------------------
+     Posts to the form handler and only confirms once the handler has
+     actually accepted it. A failure must say so and hand back a route that
+     works, never a thank-you for an enquiry that went nowhere. */
+  document.querySelectorAll('.form').forEach((form) => {
+    const note = form.querySelector('.form-note');
+    const button = form.querySelector('button[type="submit"]');
+    const restingNote = note ? note.innerHTML : '';
+    let sending = false;
+
+    const setNote = (html, state) => {
+      if (!note) return;
+      note.innerHTML = html;
+      note.classList.toggle('is-ok', state === 'ok');
+      note.classList.toggle('is-error', state === 'error');
+    };
+
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const note = form.querySelector('.form-note');
-      if (note) note.textContent = 'Thank you — your enquiry has been recorded. We will be in touch shortly.';
-      form.reset();
+      if (sending) return;
+
+      sending = true;
+      const label = button ? button.textContent : '';
+      if (button) { button.disabled = true; button.textContent = 'Sending…'; }
+      setNote('Sending your enquiry…', null);
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: new FormData(form)
+        });
+        const result = await response.json().catch(() => ({}));
+
+        if (!response.ok || result.success === false) {
+          throw new Error(result.message || 'Request failed: ' + response.status);
+        }
+
+        form.reset();
+        setNote('Thank you — your enquiry has been sent. We will be in touch shortly.', 'ok');
+      } catch (error) {
+        setNote(
+          'Sorry, your enquiry could not be sent. Please call ' +
+          '<a href="tel:+250788358876">+250 788 358 876</a> or email ' +
+          '<a href="mailto:seziberaconstruction@gmail.com">seziberaconstruction@gmail.com</a>.',
+          'error'
+        );
+      } finally {
+        sending = false;
+        if (button) { button.disabled = false; button.textContent = label; }
+      }
     });
-  }
+
+    // Restore the resting hint once the visitor starts a fresh enquiry
+    form.addEventListener('input', () => {
+      if (note && note.classList.contains('is-ok')) setNote(restingNote, null);
+    });
+  });
 });

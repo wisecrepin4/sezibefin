@@ -27,6 +27,10 @@
   --accent: #7d7266;
   --accent-deep: #574f45;
 
+  /* Semantic, used only for form submission feedback */
+  --ok: #3f6b52;
+  --error: #9c3328;
+
   /* Rules */
   --line: rgba(23, 24, 26, 0.14);
   --line-soft: rgba(23, 24, 26, 0.08);
@@ -826,6 +830,29 @@ p + p { margin-top: 1.125rem; }
 .field textarea { min-height: 8.5rem; resize: vertical; }
 
 .form-note { font-size: 0.8125rem; color: var(--ink-mute); }
+.form-note a { border-bottom: 1px solid currentColor; }
+
+/* Submission states. Semantic colours, kept desaturated so they sit on the
+   paper ground without fighting the stone accent. */
+.form-note.is-ok    { color: var(--ok); }
+.form-note.is-error { color: var(--error); }
+
+/* Honeypot: reachable by bots that fill every field, invisible and
+   unreachable for anyone using the form as intended. */
+.hp {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.btn:disabled { opacity: 0.55; cursor: progress; }
 
 /* Contact detail rows (contact page) */
 .contact-rows dt {
