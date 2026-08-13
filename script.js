@@ -11,9 +11,13 @@ document.addEventListener('DOMContentLoaded', () => {
     loader.style.animation = 'none';
 
     const bars = Array.from(loader.querySelectorAll('.loader-mark rect'));
-    const MIN_LOOP = reduced ? 0 : 700;   // below this the waveform reads as a flicker
-    const SETTLE = 420;                   // bars ease back to the true mark
-    const HOLD = 110;                     // the resolved logo registers before the reveal
+    /* Every number here is a floor the visitor has to sit through, so they are
+       kept to the shortest that still reads as motion rather than a flash.
+       MIN_LOOP is tuned against the 0.55s bar cycle in the stylesheet: about
+       two-thirds of one pass, enough to register the waveform. */
+    const MIN_LOOP = reduced ? 0 : 340;   // below this the waveform reads as a flicker
+    const SETTLE = 220;                   // bars ease back to the true mark
+    const HOLD = 60;                      // the resolved logo registers before the reveal
     const started = window.__loadStart || Date.now();
     const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -93,10 +97,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const now = Date.now();
         const dt = Math.min(1000, now - last);
         last = now;
-        // Close half the remaining gap every 180ms of real time, so the
+        // Close half the remaining gap every 100ms of real time, so the
         // counter converges at the same pace whatever the tick rate.
         const t = target();
-        shown += (t - shown) * (1 - Math.pow(0.5, dt / 180));
+        shown += (t - shown) * (1 - Math.pow(0.5, dt / 100));
         if (t - shown < 0.004) shown = t;
         paint(shown);
         if (shown >= 1) { clearInterval(timer); resolve(); }
@@ -124,8 +128,8 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(reveal);
 
     // If the network stalls, run the counter home rather than freeze mid-number
-    setTimeout(() => { forced = true; }, 5000);
-    setTimeout(hide, 8000);                 // never hold the page hostage
+    setTimeout(() => { forced = true; }, 2500);
+    setTimeout(hide, 5000);                 // never hold the page hostage
 
     // Returning via the back button restores a cached page mid-transition
     window.addEventListener('pageshow', (e) => { if (e.persisted) hide(); });
@@ -152,8 +156,9 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.remove('page-in');
         loader.classList.remove('is-hidden');
         // Let the overlay reach full opacity before the swap, so the outgoing
-        // page is never visible behind a half-faded loader.
-        setTimeout(() => { location.href = link.href; }, 520);
+        // page is never visible behind a half-faded loader. Matches the 0.25s
+        // loader transition with a little margin — no longer.
+        setTimeout(() => { location.href = link.href; }, 280);
       });
     }
   }

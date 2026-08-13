@@ -309,27 +309,32 @@ p + p { margin-top: 1.125rem; }
   border-bottom: 1px solid var(--line-soft);
 }
 
+/* Phones first: three equal-ish columns cannot hold a 16-character number
+   beside the mark, so the row is a simple flex strip here and only becomes
+   the symmetric grid — phone left, mark dead centre — once there is room. */
 .masthead-inner {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  display: flex;
   align-items: center;
-  gap: 1rem;
-  min-height: 5.5rem;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-height: 4.5rem;
   padding-block: 0.75rem;
 }
 
 .masthead-phone {
   justify-self: start;
-  font-size: 0.8125rem;
+  font-size: 0.6875rem;
   font-weight: 500;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.04em;
+  /* The number is one thing to read and one thing to tap — never two lines */
+  white-space: nowrap;
   color: var(--accent);
   transition: color 0.3s var(--ease);
 }
 .masthead-phone:hover { color: var(--accent-deep); }
 
 .masthead-logo { justify-self: center; }
-.masthead-logo img { height: 56px; width: auto; }
+.masthead-logo img { height: 40px; width: auto; }
 
 .masthead-end {
   justify-self: end;
@@ -448,12 +453,10 @@ p + p { margin-top: 1.125rem; }
 
 .hero-inner { position: relative; z-index: 1; }
 
-.hero .eyebrow { color: rgba(255, 255, 255, 0.74); }
-
 /* The hero makes the claim; the masthead carries the identity. No wordmark
-   here — it would only repeat the logo sitting directly above it. */
+   or eyebrow here — either would only repeat the logo sitting directly
+   above it, and the title reads stronger as the first thing on the frame. */
 .hero-title {
-  margin-top: 1.5rem;
   font-family: var(--serif);
   font-weight: 300;
   font-size: clamp(2rem, 5.4vw, 4rem);
@@ -1084,8 +1087,8 @@ p + p { margin-top: 1.125rem; }
 .js .loader {
   opacity: 1;
   visibility: visible;
-  transition: opacity 0.5s var(--ease), visibility 0.5s var(--ease);
-  animation: loader-failsafe 0s linear 6s forwards;
+  transition: opacity 0.25s var(--ease), visibility 0.25s var(--ease);
+  animation: loader-failsafe 0s linear 4.5s forwards;
 }
 .js .loader.is-hidden { opacity: 0; visibility: hidden; }
 
@@ -1149,15 +1152,15 @@ p + p { margin-top: 1.125rem; }
 .loader-mark rect {
   transform-box: fill-box;
   transform-origin: center;
-  animation: loader-bar 0.85s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  animation: loader-bar 0.55s cubic-bezier(0.45, 0, 0.55, 1) infinite;
 }
 
 .loader-mark rect:nth-child(1) { animation-delay: 0s; }
-.loader-mark rect:nth-child(2) { animation-delay: 0.08s; }
-.loader-mark rect:nth-child(3) { animation-delay: 0.16s; }
-.loader-mark rect:nth-child(4) { animation-delay: 0.04s; }
-.loader-mark rect:nth-child(5) { animation-delay: 0.12s; }
-.loader-mark rect:nth-child(6) { animation-delay: 0.2s; }
+.loader-mark rect:nth-child(2) { animation-delay: 0.05s; }
+.loader-mark rect:nth-child(3) { animation-delay: 0.1s; }
+.loader-mark rect:nth-child(4) { animation-delay: 0.025s; }
+.loader-mark rect:nth-child(5) { animation-delay: 0.075s; }
+.loader-mark rect:nth-child(6) { animation-delay: 0.125s; }
 
 @keyframes loader-bar {
   0%, 100% { transform: scaleY(0.34); }
@@ -1178,9 +1181,9 @@ p + p { margin-top: 1.125rem; }
    nothing is hidden if these never run — the overlay simply covers it until
    the class lands. The masthead fades only: animating transform on a sticky
    element would break stickiness while it runs. */
-.js body.page-in .masthead     { animation: page-fade 0.6s var(--ease) both; }
-.js body.page-in main          { animation: page-rise 0.75s var(--ease) 0.06s both; }
-.js body.page-in .site-footer  { animation: page-rise 0.75s var(--ease) 0.14s both; }
+.js body.page-in .masthead     { animation: page-fade 0.4s var(--ease) both; }
+.js body.page-in main          { animation: page-rise 0.5s var(--ease) 0.04s both; }
+.js body.page-in .site-footer  { animation: page-rise 0.5s var(--ease) 0.09s both; }
 
 @media (prefers-reduced-motion: reduce) {
   .loader-mark rect { animation: none; }
@@ -1274,8 +1277,19 @@ p + p { margin-top: 1.125rem; }
    -------------------------------------------------------------------------- */
 
 @media (min-width: 48rem) {
+  .masthead-inner {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 1rem;
+    min-height: 5.5rem;
+  }
+  .masthead-logo img { height: 56px; }
+  .masthead-phone { font-size: 0.8125rem; letter-spacing: 0.1em; }
   .split { grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: var(--space-md) var(--space-md); }
   .svc-row { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  /* Four items would leave an orphan on a three-up grid, and these labels are
+     long enough that four columns would set them one word per line. */
+  .svc-row-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .form-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .cta-pair { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-lg); }
