@@ -1094,11 +1094,14 @@ p + p { margin-top: 1.125rem; }
 
 @keyframes loader-failsafe { to { opacity: 0; visibility: hidden; } }
 
+/* The gap here is the tight one — track to counter, which belong together as a
+   single readout. The mark keeps its original distance via the track's own
+   margin, so pulling the number in does not drag the logo down with it. */
 .loader-inner {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.875rem;
+  gap: 0.75rem;
 }
 
 .loader-mark {
@@ -1109,10 +1112,13 @@ p + p { margin-top: 1.125rem; }
 }
 
 /* A hairline that fills — the same rule that separates every section on the
-   site, put to work as the progress track. */
+   site, put to work as the progress track. Kept to roughly two-thirds of the
+   mark above it: a track wider than the logo it belongs to reads as the main
+   event, when it is only there to account for the wait. */
 .loader-track {
   position: relative;
-  width: clamp(8rem, 17vw, 11.5rem);
+  margin-top: 1.125rem;    /* + the 0.75rem gap = the mark's original clearance */
+  width: clamp(4.5rem, 9vw, 6.5rem);
   height: 1px;
   background: var(--line);
   overflow: hidden;
@@ -1126,23 +1132,22 @@ p + p { margin-top: 1.125rem; }
 }
 
 .loader-pct {
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: 0.625rem;
+  font-weight: 400;
   letter-spacing: 0.22em;
   color: var(--ink-mute);
   font-variant-numeric: tabular-nums;
 }
 
-/* The digits go 0 → 100, so the box reserves the widest case and aligns
-   right. Without it the whole centred line would shift as the count climbs. */
 /* Reserves the widest case (100) so the centred line never shifts as the
    count climbs. 3ch covers the digits; the 0.66em covers the two extra
-   letter-spaces those digits bring with them. */
+   letter-spaces those digits bring with them. The <b> is here for that
+   reservation, not for emphasis — hence the normal weight. */
 .loader-pct b {
   display: inline-block;
   min-width: calc(3ch + 0.66em);
   text-align: right;
-  font-weight: 600;
+  font-weight: 400;
   color: var(--ink);
 }
 
