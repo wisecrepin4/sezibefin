@@ -335,6 +335,66 @@ document.addEventListener('DOMContentLoaded', () => {
     revealEls.forEach((el) => el.classList.add('in'));
   }
 
+  /* Client logos ----------------------------------------------------------
+     The row travels only when the marks genuinely do not fit. At six logos
+     that means it sits still on a desktop and scrolls on a phone, which is
+     the honest answer both ways: motion where it buys space, stillness where
+     a loop would just repeat a short list at the visitor. Re-measured on
+     resize, so rotating a phone settles into the right state. */
+  const logos = document.querySelector('.logos');
+  if (logos) {
+    const track = logos.querySelector('.logos-track');
+    const firstSet = logos.querySelector('.logos-set');
+    const noMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let clone = null;
+
+    /* The loop needs a second identical set to reset onto. Cloning it here
+       rather than in the markup keeps one list to maintain, and the copy is
+       hidden from assistive tech so each client is announced once. */
+    const setScrolling = (on) => {
+      logos.classList.toggle('is-scrolling', on);
+      if (on && !clone) {
+        clone = firstSet.cloneNode(true);
+        clone.setAttribute('aria-hidden', 'true');
+        clone.querySelectorAll('img').forEach((img) => { img.alt = ''; });
+        track.appendChild(clone);
+      } else if (!on && clone) {
+        clone.remove();
+        clone = null;
+      }
+    };
+
+    const fit = () => {
+      if (noMotion.matches) { setScrolling(false); return; }
+      // Measure the original set alone — the clone is part of the track and
+      // would otherwise make the row look permanently overflowing.
+      setScrolling(firstSet.scrollWidth > logos.clientWidth);
+    };
+
+    fit();
+    /* These are lazy — deliberately, so the page loader's progress gate does
+       not wait on them — which means the row measures as zero-width until they
+       actually arrive. Re-measure as each one lands. */
+    firstSet.querySelectorAll('img').forEach((img) => {
+      if (!img.complete) img.addEventListener('load', fit, { once: true });
+    });
+    window.addEventListener('load', fit);
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(fit, 150);
+    });
+    if (noMotion.addEventListener) noMotion.addEventListener('change', fit);
+
+    // An animation nobody can see still costs battery on a phone
+    if ('IntersectionObserver' in window) {
+      const pause = new IntersectionObserver((entries) => {
+        entries.forEach((e) => logos.classList.toggle('is-paused', !e.isIntersecting));
+      }, { threshold: 0 });
+      pause.observe(logos);
+    }
+  }
+
   /* Footer year ---------------------------------------------------------- */
   const year = document.getElementById('year');
   if (year) year.textContent = new Date().getFullYear();

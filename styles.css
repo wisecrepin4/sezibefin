@@ -1194,6 +1194,88 @@ p + p { margin-top: 1.125rem; }
 }
 
 /* --------------------------------------------------------------------------
+   15d. CLIENT LOGOS — a row of marks that travels only when it has to
+   -------------------------------------------------------------------------- */
+
+.logos {
+  position: relative;
+  display: flex;
+  justify-content: center;      /* centred while it fits… */
+  margin-top: var(--space-md);
+  overflow: hidden;
+}
+.logos.is-scrolling { justify-content: flex-start; }   /* …left-anchored once it loops */
+
+/* Fades the row into the paper at both edges so a travelling strip enters and
+   leaves the frame instead of being guillotined by the overflow box. The rgba
+   stop repeats --paper's value: a bare `transparent` fades through grey in
+   some engines, which shows as a dirty smear over a warm background. */
+.logos::before,
+.logos::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: clamp(2rem, 8vw, 5rem);
+  z-index: 1;
+  pointer-events: none;
+}
+.logos::before { left: 0; background: linear-gradient(90deg, var(--paper) 0%, rgba(247, 246, 243, 0) 100%); }
+.logos::after { right: 0; background: linear-gradient(270deg, var(--paper) 0%, rgba(247, 246, 243, 0) 100%); }
+
+.logos-track { display: flex; width: max-content; }
+
+.logos-set {
+  display: flex;
+  align-items: center;
+  gap: clamp(2.25rem, 6vw, 4rem);
+  padding-inline: clamp(1.25rem, 3vw, 2rem);
+}
+
+/* Sized by a per-logo cap rather than one shared height: these marks run from a
+   3.2:1 wordmark to a 0.6:1 upright badge, and a single height would leave the
+   narrow ones looking like an afterthought beside the wide ones. The caps below
+   equalise each logo's *area* instead, to roughly 2,500px² — that is what the
+   eye actually compares. A new logo starts at the default and gets nudged if it
+   reads heavy or light next to these. */
+.logos img {
+  width: auto;
+  height: auto;
+  max-height: var(--logo-h, 3rem);
+  max-width: var(--logo-w, 7rem);
+  object-fit: contain;
+}
+
+.logo-safe-auto img    { --logo-h: 2.75rem; }
+.logo-solid-africa img { --logo-h: 3.5rem; }
+.logo-rgl img          { --logo-h: 4rem; }
+.logo-brd img          { --logo-w: 5.75rem; }
+
+.logos.is-scrolling .logos-track { animation: logos-slide 45s linear infinite; }
+
+/* Reading a logo means stopping on it — and a keyboard user tabbing into the
+   row needs the same courtesy. is-paused is set while the row is off-screen. */
+.logos.is-scrolling:hover .logos-track,
+.logos.is-scrolling:focus-within .logos-track,
+.logos.is-paused .logos-track { animation-play-state: paused; }
+
+/* Half the track is one full set, so resetting at -50% lands on an identical
+   frame — the seam is never visible. */
+@keyframes logos-slide {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* No travel means the row has to wrap, or the overflow box would eat whatever
+   does not fit. script.js also declines to set is-scrolling in this case. */
+@media (prefers-reduced-motion: reduce) {
+  .logos { justify-content: center; }
+  .logos-track { width: auto; flex-wrap: wrap; justify-content: center; }
+  .logos-set { flex-wrap: wrap; justify-content: center; row-gap: 2rem; }
+  .logos::before, .logos::after { display: none; }
+}
+
+/* --------------------------------------------------------------------------
    16. FOOTER — licence line, hairline, link row, legal
    -------------------------------------------------------------------------- */
 
