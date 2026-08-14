@@ -1254,7 +1254,9 @@ p + p { margin-top: 1.125rem; }
 .logo-safe-auto img    { --logo-h: 2.75rem; }
 .logo-solid-africa img { --logo-h: 3.5rem; }
 .logo-rgl img          { --logo-h: 4rem; }
-.logo-brd img          { --logo-w: 5.75rem; }
+.logo-onomo img        { --logo-h: 3.5rem; }
+.logo-eaacon img       { --logo-h: 3.25rem; }
+.logo-reserve-force img { --logo-h: 4rem; }
 
 .logos.is-scrolling .logos-track { animation: logos-slide 45s linear infinite; }
 
