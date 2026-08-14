@@ -1154,22 +1154,30 @@ p + p { margin-top: 1.125rem; }
 /* One shared duration so the six bars stay in a single rhythm; only the
    delay is staggered. A common period is what lets the set resolve cleanly
    instead of being cut off mid-bounce. */
-.loader-mark rect {
-  transform-box: fill-box;
-  transform-origin: center;
+.loader-mark line {
+  stroke: currentColor;
+  stroke-width: 34;          /* the bar's width in the mark */
+  stroke-linecap: round;     /* and half of it is the cap radius */
   animation: loader-bar 0.55s cubic-bezier(0.45, 0, 0.55, 1) infinite;
 }
 
-.loader-mark rect:nth-child(1) { animation-delay: 0s; }
-.loader-mark rect:nth-child(2) { animation-delay: 0.05s; }
-.loader-mark rect:nth-child(3) { animation-delay: 0.1s; }
-.loader-mark rect:nth-child(4) { animation-delay: 0.025s; }
-.loader-mark rect:nth-child(5) { animation-delay: 0.075s; }
-.loader-mark rect:nth-child(6) { animation-delay: 0.125s; }
+.loader-mark line:nth-child(1) { animation-delay: 0s; }
+.loader-mark line:nth-child(2) { animation-delay: 0.05s; }
+.loader-mark line:nth-child(3) { animation-delay: 0.1s; }
+.loader-mark line:nth-child(4) { animation-delay: 0.025s; }
+.loader-mark line:nth-child(5) { animation-delay: 0.075s; }
+.loader-mark line:nth-child(6) { animation-delay: 0.125s; }
 
+/* Scaling the bars used to squash their rounded ends flat at the bottom of the
+   bounce — the radius was part of the shape being scaled. Trimming a dash out
+   of the stroke instead leaves the cap alone: it is drawn onto whatever the
+   dash ends up being, at full radius, every frame. Each line is normalised to
+   pathLength 100, so one keyframe drives all six despite their differing
+   heights, and the negative offset of half the remaining gap keeps the dash
+   centred so a bar still contracts toward its own middle. */
 @keyframes loader-bar {
-  0%, 100% { transform: scaleY(0.34); }
-  50%      { transform: scaleY(1); }
+  0%, 100% { stroke-dasharray: 24 100; stroke-dashoffset: -38; }
+  50%      { stroke-dasharray: 100 100; stroke-dashoffset: 0; }
 }
 
 /* --------------------------------------------------------------------------
@@ -1191,7 +1199,7 @@ p + p { margin-top: 1.125rem; }
 .js body.page-in .site-footer  { animation: page-rise 0.5s var(--ease) 0.09s both; }
 
 @media (prefers-reduced-motion: reduce) {
-  .loader-mark rect { animation: none; }
+  .loader-mark line { animation: none; }
   .js .loader { transition: none; }
   .js body.page-in .masthead,
   .js body.page-in main,

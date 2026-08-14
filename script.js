@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // JS is alive, so drop the CSS failsafe and take over visibility
     loader.style.animation = 'none';
 
-    const bars = Array.from(loader.querySelectorAll('.loader-mark rect'));
+    const bars = Array.from(loader.querySelectorAll('.loader-mark line'));
     /* Every number here is a floor the visitor has to sit through, so they are
        kept to the shortest that still reads as motion rather than a flash.
        MIN_LOOP is tuned against the 0.55s bar cycle in the stylesheet: about
@@ -21,10 +21,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const started = window.__loadStart || Date.now();
     const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 
-    const scaleYOf = (bar) => {
-      const t = getComputedStyle(bar).transform;
-      if (!t || t === 'none') return 1;
-      try { return new DOMMatrixReadOnly(t).d || 1; } catch (err) { return 1; }
+    /* A bar's height is the length of dash left in its stroke, not a scale —
+       that is what keeps its rounded ends at full radius while it moves, see
+       .loader-mark line. So the settle pins and eases the dash. */
+    const EASE = 'cubic-bezier(0.22, 0.68, 0.28, 1)';
+    const dashOf = (bar) => {
+      const cs = getComputedStyle(bar);
+      return { array: cs.strokeDasharray, offset: cs.strokeDashoffset };
     };
 
     /* Pin each bar at whatever height it currently occupies, drop the loop,
@@ -33,22 +36,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const settle = async () => {
       if (reduced || !bars.length) return;
       bars.forEach((bar) => {
-        const y = scaleYOf(bar);
+        const dash = dashOf(bar);
         bar.style.animation = 'none';
         bar.style.transition = 'none';
-        bar.style.transform = 'scaleY(' + y + ')';
+        bar.style.strokeDasharray = dash.array;
+        bar.style.strokeDashoffset = dash.offset;
       });
       void loader.offsetWidth;
       bars.forEach((bar) => {
-        bar.style.transition = 'transform ' + SETTLE + 'ms cubic-bezier(0.22, 0.68, 0.28, 1)';
-        bar.style.transform = 'scaleY(1)';
+        bar.style.transition = 'stroke-dasharray ' + SETTLE + 'ms ' + EASE +
+                               ', stroke-dashoffset ' + SETTLE + 'ms ' + EASE;
+        bar.style.strokeDasharray = '100 100';   // pathLength units: the whole bar
+        bar.style.strokeDashoffset = '0';
       });
       await wait(SETTLE + 30);
     };
 
     const restartBars = () => bars.forEach((bar) => {
       bar.style.transition = '';
-      bar.style.transform = '';
+      bar.style.strokeDasharray = '';
+      bar.style.strokeDashoffset = '';
       bar.style.animation = '';
     });
 

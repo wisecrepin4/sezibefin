@@ -18,13 +18,17 @@
 
 <div class="loader" id="loader" aria-hidden="true">
   <div class="loader-inner">
-    <svg class="loader-mark" viewBox="0 0 526 374" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
-      <rect x="0" y="72" width="34" height="238" rx="17"/>
-      <rect x="98" y="15" width="34" height="343" rx="17"/>
-      <rect x="196" y="59" width="34" height="257" rx="17"/>
-      <rect x="294" y="99" width="34" height="179" rx="17"/>
-      <rect x="392" y="1" width="34" height="372" rx="17"/>
-      <rect x="492" y="49" width="34" height="276" rx="17"/>
+    <!-- The bars are strokes, not filled rects, so the animation can shorten
+         them without flattening their rounded ends — see .loader-mark line.
+         pathLength normalises each one to 100 units, which is what lets a
+         single keyframe drive all six despite their different heights. -->
+    <svg class="loader-mark" viewBox="0 0 526 374" xmlns="http://www.w3.org/2000/svg" fill="none">
+      <line x1="17" y1="89" x2="17" y2="293" pathLength="100"/>
+      <line x1="115" y1="32" x2="115" y2="341" pathLength="100"/>
+      <line x1="213" y1="76" x2="213" y2="299" pathLength="100"/>
+      <line x1="311" y1="116" x2="311" y2="261" pathLength="100"/>
+      <line x1="409" y1="18" x2="409" y2="356" pathLength="100"/>
+      <line x1="509" y1="66" x2="509" y2="308" pathLength="100"/>
     </svg>
     <div class="loader-track"><span></span></div>
     <p class="loader-pct"><b>0</b>%</p>
