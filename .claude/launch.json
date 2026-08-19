@@ -3,8 +3,10 @@
   "configurations": [
     {
       "name": "site",
-      "runtimeExecutable": "python",
-      "runtimeArgs": ["-m", "http.server", "5173"],
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "C:/Users/ADMINI~1/AppData/Local/Temp/claude/C--Users-Administrator-Desktop-seziberacons/b25bcdd6-d87d-4bad-92b3-8e0db280d9d0/scratchpad/dev-server.js"
+      ],
       "port": 5173
     }
   ]

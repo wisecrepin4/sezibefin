@@ -1,0 +1,56 @@
+Order ID,Order Date,Region,State,Product Category,Order Total,Items,Customer Type
+TW-1001,2024-02-11,Metro,VIC,Apparel,68,2,New
+TW-1002,2024-03-19,Metro,NSW,Camping,142,4,Returning
+TW-1003,2024-04-02,Metro,QLD,Cookware,95,3,New
+TW-1004,2024-05-22,Metro,VIC,4WD & Recovery,210,2,Returning
+TW-1005,2024-06-08,Metro,SA,Apparel,54,1,New
+TW-1006,2024-07-14,Metro,NSW,Hiking,119,3,New
+TW-1007,2024-08-27,Metro,WA,Cookware,87,2,Returning
+TW-1008,2024-09-05,Metro,VIC,Camping,165,5,New
+TW-1009,2024-09-21,Metro,QLD,Fishing,73,2,New
+TW-1010,2024-10-12,Metro,NSW,Camping,134,4,Returning
+TW-1011,2024-10-30,Metro,VIC,Hiking,99,2,New
+TW-1012,2024-11-16,Metro,WA,4WD & Recovery,248,3,Returning
+TW-1013,2024-11-28,Metro,SA,Apparel,61,1,New
+TW-1014,2024-12-07,Metro,NSW,Camping,128,4,Returning
+TW-1015,2024-12-19,Metro,VIC,Camping,156,5,New
+TW-1016,2025-01-23,Metro,QLD,Apparel,82,2,New
+TW-1017,2025-02-14,Metro,NSW,Hiking,113,3,Returning
+TW-1018,2025-03-08,Metro,VIC,Fishing,191,4,New
+TW-1019,2025-04-19,Metro,WA,Apparel,76,2,New
+TW-1020,2025-05-27,Metro,SA,Camping,145,4,Returning
+TW-1021,2025-06-15,Metro,NSW,Hiking,104,2,New
+TW-1022,2025-07-09,Metro,QLD,Cookware,67,2,New
+TW-1023,2025-08-21,Metro,VIC,Camping,138,4,Returning
+TW-1024,2025-09-04,Metro,NSW,Hiking,92,2,New
+TW-1025,2025-09-26,Metro,WA,Fishing,177,3,Returning
+TW-1026,2025-10-11,Metro,SA,Cookware,58,1,New
+TW-1027,2025-10-29,Metro,VIC,Camping,123,3,New
+TW-1028,2025-11-13,Metro,NSW,Hiking,109,2,Returning
+TW-1029,2025-11-30,Metro,QLD,Apparel,84,2,New
+TW-1030,2025-12-15,Metro,VIC,4WD & Recovery,322,3,Returning
+TW-1031,2024-01-29,Regional,VIC,Camping,145,4,Returning
+TW-1032,2024-03-06,Regional,NSW,Apparel,92,2,New
+TW-1033,2024-04-18,Regional,QLD,4WD & Recovery,210,2,Returning
+TW-1034,2024-05-09,Regional,TAS,Hiking,121,3,New
+TW-1035,2024-06-24,Regional,WA,4WD & Recovery,268,3,Returning
+TW-1036,2024-07-31,Regional,SA,Cookware,78,2,New
+TW-1037,2024-09-02,Regional,VIC,Camping,162,5,Returning
+TW-1038,2024-09-19,Regional,NSW,Fishing,188,4,Returning
+TW-1039,2024-10-08,Regional,QLD,Camping,134,4,New
+TW-1040,2024-10-27,Regional,VIC,4WD & Recovery,232,3,Returning
+TW-1041,2024-11-12,Regional,TAS,Hiking,108,2,New
+TW-1042,2024-11-26,Regional,WA,Fishing,199,4,Returning
+TW-1043,2024-12-09,Regional,NSW,Camping,151,5,Returning
+TW-1044,2024-12-21,Regional,QLD,4WD & Recovery,256,3,Returning
+TW-1045,2025-02-17,Regional,SA,Apparel,96,2,New
+TW-1046,2025-03-25,Regional,VIC,Camping,173,5,Returning
+TW-1047,2025-05-13,Regional,WA,4WD & Recovery,221,2,Returning
+TW-1048,2025-06-29,Regional,NSW,Hiking,139,3,New
+TW-1049,2025-08-16,Regional,VIC,Fishing,184,4,Returning
+TW-1050,2025-09-07,Regional,QLD,Camping,158,5,New
+TW-1051,2025-09-23,Regional,TAS,Cookware,117,3,New
+TW-1052,2025-10-14,Regional,NSW,4WD & Recovery,241,3,Returning
+TW-1053,2025-11-08,Regional,WA,Camping,176,5,Returning
+TW-1054,2025-11-22,Regional,SA,Hiking,149,3,New
+TW-1055,2025-12-13,Regional,VIC,4WD & Recovery,277,3,Returning

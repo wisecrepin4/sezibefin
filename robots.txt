@@ -1,0 +1,31 @@
+# robots.txt for Sezibera Construction Ltd
+# https://www.sezibera.com
+
+User-agent: *
+Allow: /
+
+# Block nothing. This is a small marketing site and every page should be crawled.
+
+# Housekeeping files that carry no search value
+Disallow: /build-copydeck.js
+Disallow: /docx2pdf.py
+Disallow: /*.docx$
+Disallow: /*.pdf$
+
+# AI crawlers that send referral traffic back. Allowed deliberately.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://www.sezibera.com/sitemap.xml
